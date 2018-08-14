@@ -10,10 +10,12 @@ var AppView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template());
+
     var VLV = new VideoListView({collection: this.videos});
     $('.list').append(VLV.render());
-   // $('.search').append('<h1>DanielReallySucks</h1>');
-    // $('.list').append(VLV);
+
+    var VideoToPlay = new VideoPlayerView({collection: this.videos, model: this.videos.at(0)});
+    $('.player').append(VideoToPlay.render());
     return this;
   },
 
