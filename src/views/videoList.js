@@ -2,22 +2,25 @@ var VideoListView = Backbone.View.extend({
   // collection of videos
 
   initialize: function() {
-    this.collection.on('sync', function() {
+    this.render(); 
+    this.collection.on('sync', function() {  //if API call triggers sync event, do this
       this.render();
     }, this);
   },
   
   render: function() {
     this.$el.children().detach();
-    this.collection.forEach(this.renderVideo, this);
-    console.log(this.collection, "im from vlv");
-    this.$el.html(this.template(this.collection));
-    return this;
+    let mydiv = this.$el.html(this.template());
+    let appendToMe = mydiv[0].children[0];
+    this.collection.forEach(element => {
+      this.renderVideo(element, appendToMe);
+    }, this);
+    return this.$el.html();
   },
   
-  renderVideo: function(video) {
+  renderVideo: function(video, parentDiv) {
     let datVideo = new VideoListEntryView({model:video});
-    this.$el.append(datVideo.render());
+    parentDiv.append(datVideo.render()[0]);
   },
 
   template: templateURL('src/templates/videoList.html')

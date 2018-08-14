@@ -9,14 +9,14 @@ var AppView = Backbone.View.extend({
 
 
   render: function() {
-    let VLV = new VideoListView({collection: this.videos});
-    var vlvRendered = VLV.render();
-    let mySearchBar = new SearchView();
-    console.log(mySearchBar.render(), "search bar");
-    this.$el.html(this.template(mySearchBar.render()));
+    this.$el.html(this.template());
+    var VLV = new VideoListView({collection: this.videos});
+    $('.list').append(VLV.render());
+   // $('.search').append('<h1>DanielReallySucks</h1>');
+    // $('.list').append(VLV);
     return this;
   },
-  
+
   template: templateURL('src/templates/app.html')
 
 });
